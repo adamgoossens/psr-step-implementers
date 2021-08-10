@@ -182,7 +182,7 @@ class Shell(StepImplementer):
             step_result.add_evidence(
                 name=evidence_name,
                 value=evidence_value,
-                desc=evidence_desc
+                description=evidence_desc
             )
 
         return step_result
