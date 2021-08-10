@@ -22,6 +22,20 @@ This allows you to execute arbitrary commands in the container. Example:
         ROX_CENTRAL_ADDRESS: ${acs-endpoint-url}
 ```
 
+Or add something extra after a built in step:
+
+```
+  create-container-image:
+  - implementer: Buildah
+  - implementer: user.Shell
+    config:
+      shell-script: |
+        digest=$(buildah inspect containers-storage:$IMAGE_URI | grep FromImageDigest | grep -o 'sha256\:[a-z0-9]*')
+        printf "Digest of built container\n$digest" | tee artifacts/container-image-digest evidence/container-image-digest        
+      shell-parameters:
+        IMAGE_URI: ${container-image-tag}
+```
+
 The `bash` shell is used to execute the script, so `bash` must be present in the container.
 
 ### Passing in artifacts
